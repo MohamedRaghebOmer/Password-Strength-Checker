@@ -66,7 +66,7 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(249, 618);
+            this.label1.Location = new System.Drawing.Point(297, 615);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(848, 38);
             this.label1.TabIndex = 1;
@@ -79,7 +79,7 @@
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Red;
-            this.label2.Location = new System.Drawing.Point(364, 662);
+            this.label2.Location = new System.Drawing.Point(412, 659);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(619, 38);
             this.label2.TabIndex = 2;
@@ -135,10 +135,10 @@
             // 
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.Transparent;
-            this.label6.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Font = new System.Drawing.Font("Microsoft YaHei", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(583, 431);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(248, 27);
+            this.label6.Size = new System.Drawing.Size(223, 25);
             this.label6.TabIndex = 7;
             this.label6.Text = "0 Character Containing:";
             // 
@@ -146,35 +146,35 @@
             // 
             this.lblLowerCase.AutoSize = true;
             this.lblLowerCase.BackColor = System.Drawing.Color.Transparent;
-            this.lblLowerCase.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLowerCase.Font = new System.Drawing.Font("Microsoft YaHei", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblLowerCase.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.lblLowerCase.Location = new System.Drawing.Point(778, 430);
+            this.lblLowerCase.Location = new System.Drawing.Point(783, 430);
             this.lblLowerCase.Name = "lblLowerCase";
-            this.lblLowerCase.Size = new System.Drawing.Size(120, 27);
+            this.lblLowerCase.Size = new System.Drawing.Size(103, 24);
             this.lblLowerCase.TabIndex = 8;
-            this.lblLowerCase.Text = "Lower Case";
+            this.lblLowerCase.Text = "Lower case";
             // 
             // lblUperCase
             // 
             this.lblUperCase.AutoSize = true;
             this.lblUperCase.BackColor = System.Drawing.Color.Transparent;
-            this.lblUperCase.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUperCase.Font = new System.Drawing.Font("Microsoft YaHei", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUperCase.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.lblUperCase.Location = new System.Drawing.Point(874, 430);
             this.lblUperCase.Name = "lblUperCase";
-            this.lblUperCase.Size = new System.Drawing.Size(122, 27);
+            this.lblUperCase.Size = new System.Drawing.Size(106, 24);
             this.lblUperCase.TabIndex = 9;
-            this.lblUperCase.Text = "Upper Case";
+            this.lblUperCase.Text = "Upper case";
             // 
             // lblNumbers
             // 
             this.lblNumbers.AutoSize = true;
             this.lblNumbers.BackColor = System.Drawing.Color.Transparent;
-            this.lblNumbers.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNumbers.Font = new System.Drawing.Font("Microsoft YaHei", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNumbers.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.lblNumbers.Location = new System.Drawing.Point(971, 430);
+            this.lblNumbers.Location = new System.Drawing.Point(969, 430);
             this.lblNumbers.Name = "lblNumbers";
-            this.lblNumbers.Size = new System.Drawing.Size(100, 27);
+            this.lblNumbers.Size = new System.Drawing.Size(90, 24);
             this.lblNumbers.TabIndex = 10;
             this.lblNumbers.Text = "Numbers";
             // 
@@ -182,11 +182,11 @@
             // 
             this.lblSymbols.AutoSize = true;
             this.lblSymbols.BackColor = System.Drawing.Color.Transparent;
-            this.lblSymbols.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSymbols.Font = new System.Drawing.Font("Microsoft YaHei", 11F);
             this.lblSymbols.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.lblSymbols.Location = new System.Drawing.Point(1049, 430);
+            this.lblSymbols.Location = new System.Drawing.Point(1047, 430);
             this.lblSymbols.Name = "lblSymbols";
-            this.lblSymbols.Size = new System.Drawing.Size(94, 27);
+            this.lblSymbols.Size = new System.Drawing.Size(89, 25);
             this.lblSymbols.TabIndex = 11;
             this.lblSymbols.Text = "Symbols";
             // 
@@ -195,7 +195,7 @@
             this.label7.AutoSize = true;
             this.label7.BackColor = System.Drawing.Color.Transparent;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(337, 750);
+            this.label7.Location = new System.Drawing.Point(366, 755);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(672, 22);
             this.label7.TabIndex = 12;
