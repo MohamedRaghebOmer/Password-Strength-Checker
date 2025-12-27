@@ -23,6 +23,9 @@ namespace PasswordStrengthChecker
 
         bool IsCommonPassword(string password)
         {
+            if (string.IsNullOrEmpty(password))
+                return true;
+
             string[] CommonWords =
             {
             // Basic common passwords
@@ -63,7 +66,7 @@ namespace PasswordStrengthChecker
             "qwerty123", "abc123", "test123", "user123",
             "login123"
         };
-            
+
             string lower = password.ToLower();
             foreach (string w in CommonWords)
             {
@@ -74,25 +77,88 @@ namespace PasswordStrengthChecker
             return false;
         }
 
-        static bool HasCharacterAppearedMoreThanThreeTimes(string password)
+        bool HasCharacterAppearedMoreThanThreeTimes(string password)
         {
+            int[] freq = new int[256];
+
             foreach (char c in password)
             {
-                int count = 0;
-                foreach (char x in password)
-                {
-                    if (x == c)
-                        count++;
-                }
-
-                if (count > 3)
+                freq[c]++;
+                if (freq[c] > 3)
                     return true;
             }
 
             return false;
         }
 
-        // next step is implement bool IsVeryWeek() {...}
+        // new fun
+        bool IsSymbol(char ch)
+        {
+            return !(char.IsDigit(ch) || char.IsUpper(ch) || char.IsLower(ch));
+        }
+
+        // new fun
+        bool IsTheSameCharType(string Password)
+        {
+            if (string.IsNullOrEmpty(Password))
+                return true;
+
+            // Check is all the password is digits
+            if (char.IsDigit(Password[0]))
+            {
+                for (int i = 0; i < Password.Length; i++)
+                {
+                    if (!char.IsDigit(Password[i]))
+                        return false;
+                }
+                return true; // all passwor is digits
+            }
+
+            // Is letter (upper or lower)
+            if (char.IsUpper(Password[0]) || char.IsLower(Password[0]))
+            {
+                for (int i = 0; i < Password.Length; i++)
+                {
+                    if (!char.IsUpper(Password[i]) && !char.IsLower(Password[i]))
+                        return false;
+                }
+                return true; // all password is letters
+            }
+
+            // check all password is symbols
+            if (IsSymbol(Password[0]))
+            {
+                for (int i = 0; i < Password.Length; i++)
+                {
+                    if (!IsSymbol(Password[i]))
+                        return false; // there is a char is not symbol
+                }
+
+                return true; // all char is symbols
+            }
+
+            // It's impossible to continue to here because
+            // there is only 4 Probabilities to the char type
+
+            return false;
+        }
+
+        bool IsVeryWeak(string Password)
+        {
+            /* 
+                    (Very week password conditions)
+            1- Less than 5 characters
+            2- Common words even longer than 5 characters
+            3- All password is the same char type
+            4- if the same char appeard more than 3 times
+            */
+
+
+            // if one condition is true, then the password IsVeryWeek
+            return Password.Length < 5 || IsCommonPassword(Password)
+                || HasCharacterAppearedMoreThanThreeTimes(Password)
+                || IsTheSameCharType(Password);
+        }
 
         private void label1_Click(object sender, EventArgs e)
         {
