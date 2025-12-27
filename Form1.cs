@@ -250,7 +250,6 @@ namespace PasswordStrengthChecker
                 (Password.Length == 10 && types == 3);
         }
 
-        // new
         bool IsVeryStrong(string Password)
         {
             /*
@@ -269,7 +268,20 @@ namespace PasswordStrengthChecker
                 (Password.Length >= 10 && Password.Length <= 13 && types == 4);
         }
 
-
+        enum enPasswordStrength { eVeryWeak, eWeak, eMedium, eStrong, eVeryStrong };
+        enPasswordStrength GetPasswordStrength(string Password)
+        {
+            if (IsVeryWeak(Password))
+                return enPasswordStrength.eVeryWeak;
+            else if (IsWeak(Password))
+                return enPasswordStrength.eWeak;
+            else if (IsMedium(Password))
+                return enPasswordStrength.eMedium;
+            else if (IsStrong(Password))
+                return enPasswordStrength.eStrong;
+            else
+                return enPasswordStrength.eVeryStrong;
+        }
 
         private void label1_Click(object sender, EventArgs e)
         {
