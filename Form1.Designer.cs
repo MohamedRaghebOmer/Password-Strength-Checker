@@ -62,7 +62,6 @@
             this.txtPassword.TabIndex = 0;
             this.txtPassword.Click += new System.EventHandler(this.txtPassword_Click);
             this.txtPassword.TextChanged += new System.EventHandler(this.txtPassword_TextChanged);
-            this.txtPassword.DoubleClick += new System.EventHandler(this.txtPassword_DoubleClick);
             // 
             // label1
             // 
@@ -112,15 +111,16 @@
             this.cbShowPassword.TabIndex = 4;
             this.cbShowPassword.Text = "Show Password";
             this.cbShowPassword.UseVisualStyleBackColor = false;
+            this.cbShowPassword.CheckedChanged += new System.EventHandler(this.cbShowPassword_CheckedChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.Font = new System.Drawing.Font("Microsoft YaHei", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(678, 479);
+            this.label4.Font = new System.Drawing.Font("Microsoft YaHei", 25.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(587, 482);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(430, 37);
+            this.label4.Size = new System.Drawing.Size(677, 58);
             this.label4.TabIndex = 5;
             this.label4.Text = "Time to crack your password:";
             // 
@@ -128,10 +128,10 @@
             // 
             this.lblTimeToCrack.AutoSize = true;
             this.lblTimeToCrack.BackColor = System.Drawing.Color.Transparent;
-            this.lblTimeToCrack.Font = new System.Drawing.Font("Microsoft YaHei", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTimeToCrack.Location = new System.Drawing.Point(797, 516);
+            this.lblTimeToCrack.Font = new System.Drawing.Font("Microsoft YaHei", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTimeToCrack.Location = new System.Drawing.Point(719, 540);
             this.lblTimeToCrack.Name = "lblTimeToCrack";
-            this.lblTimeToCrack.Size = new System.Drawing.Size(126, 30);
+            this.lblTimeToCrack.Size = new System.Drawing.Size(202, 48);
             this.lblTimeToCrack.TabIndex = 6;
             this.lblTimeToCrack.Text = "0 Seconds";
             // 
@@ -151,7 +151,7 @@
             this.lblLowerCase.AutoSize = true;
             this.lblLowerCase.BackColor = System.Drawing.Color.Transparent;
             this.lblLowerCase.Font = new System.Drawing.Font("Microsoft YaHei", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLowerCase.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.lblLowerCase.ForeColor = System.Drawing.Color.Gray;
             this.lblLowerCase.Location = new System.Drawing.Point(783, 430);
             this.lblLowerCase.Name = "lblLowerCase";
             this.lblLowerCase.Size = new System.Drawing.Size(103, 24);
@@ -163,7 +163,7 @@
             this.lblUperCase.AutoSize = true;
             this.lblUperCase.BackColor = System.Drawing.Color.Transparent;
             this.lblUperCase.Font = new System.Drawing.Font("Microsoft YaHei", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUperCase.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.lblUperCase.ForeColor = System.Drawing.Color.Gray;
             this.lblUperCase.Location = new System.Drawing.Point(874, 430);
             this.lblUperCase.Name = "lblUperCase";
             this.lblUperCase.Size = new System.Drawing.Size(106, 24);
@@ -175,7 +175,7 @@
             this.lblNumbers.AutoSize = true;
             this.lblNumbers.BackColor = System.Drawing.Color.Transparent;
             this.lblNumbers.Font = new System.Drawing.Font("Microsoft YaHei", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNumbers.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.lblNumbers.ForeColor = System.Drawing.Color.Gray;
             this.lblNumbers.Location = new System.Drawing.Point(969, 430);
             this.lblNumbers.Name = "lblNumbers";
             this.lblNumbers.Size = new System.Drawing.Size(90, 24);
@@ -187,7 +187,7 @@
             this.lblSymbols.AutoSize = true;
             this.lblSymbols.BackColor = System.Drawing.Color.Transparent;
             this.lblSymbols.Font = new System.Drawing.Font("Microsoft YaHei", 11F);
-            this.lblSymbols.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.lblSymbols.ForeColor = System.Drawing.Color.Gray;
             this.lblSymbols.Location = new System.Drawing.Point(1047, 430);
             this.lblSymbols.Name = "lblSymbols";
             this.lblSymbols.Size = new System.Drawing.Size(89, 25);
@@ -224,7 +224,7 @@
             this.lblStrength.BackColor = System.Drawing.Color.Transparent;
             this.lblStrength.Font = new System.Drawing.Font("Microsoft YaHei", 28.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStrength.ForeColor = System.Drawing.Color.White;
-            this.lblStrength.Location = new System.Drawing.Point(707, 173);
+            this.lblStrength.Location = new System.Drawing.Point(717, 184);
             this.lblStrength.Name = "lblStrength";
             this.lblStrength.Size = new System.Drawing.Size(321, 60);
             this.lblStrength.TabIndex = 14;
@@ -250,7 +250,7 @@
             this.label10.ForeColor = System.Drawing.Color.Yellow;
             this.label10.Location = new System.Drawing.Point(565, 301);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(93, 38);
+            this.label10.Size = new System.Drawing.Size(89, 36);
             this.label10.TabIndex = 16;
             this.label10.Text = "Note:";
             // 
@@ -262,7 +262,7 @@
             this.label11.ForeColor = System.Drawing.Color.Yellow;
             this.label11.Location = new System.Drawing.Point(288, 633);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(88, 45);
+            this.label11.Size = new System.Drawing.Size(86, 43);
             this.label11.TabIndex = 17;
             this.label11.Text = "Tip: ";
             // 
