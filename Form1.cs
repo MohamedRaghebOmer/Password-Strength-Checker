@@ -231,7 +231,6 @@ namespace PasswordStrengthChecker
                 (Password.Length == 8 && (types == 2 || types == 3));
         }
 
-        // new
         bool IsStrong(string Password)
         {
             /*
@@ -249,6 +248,25 @@ namespace PasswordStrengthChecker
             return
                 ((Password.Length == 8 || Password.Length == 9) && types == 4) ||
                 (Password.Length == 10 && types == 3);
+        }
+
+        // new
+        bool IsVeryStrong(string Password)
+        {
+            /*
+                Very Strong Password Conditions
+                - length 10–13 and has 4 character types
+                - length 14 or more and has at least 3 character types
+            */
+
+            if (string.IsNullOrEmpty(Password))
+                return false;
+
+            byte types = CountCharacterTypes(Password);
+
+            return
+                (Password.Length >= 14 && types >= 3) ||
+                (Password.Length >= 10 && Password.Length <= 13 && types == 4);
         }
 
 
