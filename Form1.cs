@@ -210,11 +210,9 @@ namespace PasswordStrengthChecker
              */
 
             return (Password.Length == 5 && !IsVeryWeak(Password) ||
-                (Password.Length == 6 && CountCharacterTypes
-                (Password) == 2));
+                (Password.Length == 6 && CountCharacterTypes(Password) == 2));
         }
 
-        // new
         bool IsMedium(string Password)
         {
             /*
@@ -226,14 +224,35 @@ namespace PasswordStrengthChecker
             if (string.IsNullOrEmpty(Password))
                 return false;
 
-            int types = CountCharacterTypes(Password);
+            byte types = CountCharacterTypes(Password);
 
             return
                 (!IsWeak(Password) && (Password.Length == 6 || Password.Length == 7)) ||
                 (Password.Length == 8 && (types == 2 || types == 3));
         }
 
-        
+        // new
+        bool IsStrong(string Password)
+        {
+            /*
+                (Strong Password Conditions)
+
+                - length 8 or 9 and has 4 character types
+                - length 10 and has 3 character types
+            */
+
+            if (string.IsNullOrEmpty(Password))
+                return false;
+
+            byte types = CountCharacterTypes(Password);
+
+            return
+                ((Password.Length == 8 || Password.Length == 9) && types == 4) ||
+                (Password.Length == 10 && types == 3);
+        }
+
+
+
         private void label1_Click(object sender, EventArgs e)
         {
 
