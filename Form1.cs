@@ -77,20 +77,6 @@ namespace PasswordStrengthChecker
             return false;
         }
 
-        bool HasCharacterAppearedMoreThanThreeTimes(string password)
-        {
-            int[] freq = new int[256];
-
-            foreach (char c in password)
-            {
-                freq[c]++;
-                if (freq[c] > 3)
-                    return true;
-            }
-
-            return false;
-        }
-
         bool IsTheSameCharType(string Password)
         {
             if (string.IsNullOrEmpty(Password))
@@ -142,15 +128,13 @@ namespace PasswordStrengthChecker
                     (Very week password conditions)
             1- Less than 5 characters
             2- Common words even longer than 5 characters
-            3- All password is the same char type
-            4- if the same char appeard more than 3 times
+            3- All password is the same char type && length < 5
             */
 
 
             // if one condition is true, then the password IsVeryWeek
             return Password.Length < 5 || IsCommonPassword(Password)
-                || HasCharacterAppearedMoreThanThreeTimes(Password)
-                || IsTheSameCharType(Password);
+                || (IsTheSameCharType(Password) && Password.Length < 5);
         }
 
         byte CountTrueVar(bool b1, bool b2, bool b3, bool b4)
@@ -207,10 +191,12 @@ namespace PasswordStrengthChecker
                             (Weak Password conditions)
             - password.length = 5.
             - password.length = 6 and two characters type.
+            - All password is the same char type and length < 7
              */
 
             return (Password.Length == 5 && !IsVeryWeak(Password) ||
-                (Password.Length == 6 && CountCharacterTypes(Password) == 2));
+                (Password.Length == 6 && CountCharacterTypes(Password) == 2)) ||
+                (IsTheSameCharType(Password) && Password.Length < 7);
         }
 
         bool IsMedium(string Password)
@@ -219,6 +205,7 @@ namespace PasswordStrengthChecker
                                (Medium password conditions)
              1. password.length = 6 || Password.length = 7
              2. if (Password.length = 8) && has 3 or 2 characters types       
+             3. All password is the same char type and length < 10
              */
 
             if (string.IsNullOrEmpty(Password))
@@ -228,7 +215,8 @@ namespace PasswordStrengthChecker
 
             return
                 (!IsWeak(Password) && (Password.Length == 6 || Password.Length == 7)) ||
-                (Password.Length == 8 && (types == 2 || types == 3));
+                (Password.Length == 8 && (types == 2 || types == 3)) ||
+                (IsTheSameCharType(Password) && Password.Length < 10);
         }
 
         bool IsStrong(string Password)
@@ -238,6 +226,7 @@ namespace PasswordStrengthChecker
 
                 - length 8 or 9 and has 4 character types
                 - length 10 and has 3 character types
+                - All password has the same char type and length < 13
             */
 
             if (string.IsNullOrEmpty(Password))
@@ -247,7 +236,8 @@ namespace PasswordStrengthChecker
 
             return
                 ((Password.Length == 8 || Password.Length == 9) && types == 4) ||
-                (Password.Length == 10 && types == 3);
+                (Password.Length == 10 && types == 3) ||
+                (IsTheSameCharType(Password) && Password.Length < 13);
         }
 
         bool IsVeryStrong(string Password)
@@ -256,6 +246,7 @@ namespace PasswordStrengthChecker
                 Very Strong Password Conditions
                 - length 10–13 and has 4 character types
                 - length 14 or more and has at least 3 character types
+                - All passwor has the same char type and length < 17
             */
 
             if (string.IsNullOrEmpty(Password))
@@ -265,7 +256,8 @@ namespace PasswordStrengthChecker
 
             return
                 (Password.Length >= 14 && types >= 3) ||
-                (Password.Length >= 10 && Password.Length <= 13 && types == 4);
+                (Password.Length >= 10 && Password.Length <= 13 && types == 4) ||
+                (IsTheSameCharType(Password) && Password.Length < 17);
         }
 
         enum enPasswordStrength { eVeryWeak, eWeak, eMedium, eStrong, eVeryStrong };
@@ -283,6 +275,46 @@ namespace PasswordStrengthChecker
                 return enPasswordStrength.eVeryStrong;
         }
 
+        bool ContainLowerCase(string Password)
+        {
+            foreach(char c in Password)
+            {
+                if (char.IsLower(c))
+                    return true;
+            }
+            return false;
+        }
+
+        bool ContainUpperCase(string Password)
+        {
+            foreach(char c in Password)
+            {
+                if (char.IsUpper(c))
+                    return true;
+            }
+            return false;
+        }
+
+        bool ContainNumber(string Password)
+        {
+            foreach(char c in Password)
+            {
+                if (char.IsDigit(c))
+                    return true;
+            }
+            return false;
+        }
+
+        bool ContainSymbol(string Passsword)
+        {
+            foreach(char c in Passsword)
+            {
+                if (!char.IsLetterOrDigit(c))
+                    return true;
+            }
+            return false;
+        }
+
         private void label1_Click(object sender, EventArgs e)
         {
 
@@ -294,33 +326,237 @@ namespace PasswordStrengthChecker
             lblOverlay.BringToFront();
         }
 
+        void UpdateTextboxPasswordBackColor()
+        {
+            switch (GetPasswordStrength(txtPassword.Text.ToString()))
+            {
+                case enPasswordStrength.eVeryWeak:
+                    {
+                        txtPassword.BackColor = Color.Red;
+                        lblStrength.Text = "Very Weak";
+                        break;
+                    }
+                case enPasswordStrength.eWeak:
+                    {
+                        txtPassword.BackColor = Color.Orange;
+                        lblStrength.Text = "Weak";
+                        break;
+                    }
+                case enPasswordStrength.eMedium:
+                    {
+                        txtPassword.BackColor = Color.Yellow;
+                        lblStrength.Text = "Medium";
+                        break;
+                    }
+                case enPasswordStrength.eStrong:
+                    {
+                        txtPassword.BackColor = Color.LightGreen;
+                        lblStrength.Text = "Strong";
+                        break;
+                    }
+                case enPasswordStrength.eVeryStrong:
+                    {
+                        txtPassword.BackColor = Color.Green;
+                        lblStrength.Text = "Very Strong";
+                        break;
+                    }
+            }
+
+        }
+        
+        void UpdateLableStrength()
+        {
+            switch (GetPasswordStrength(txtPassword.Text.ToString()))
+            {
+                case enPasswordStrength.eVeryWeak:
+                    {
+                        lblStrength.Text = "Very Weak";
+                        lblStrength.ForeColor = Color.Red;
+                        break;
+                    }
+                case enPasswordStrength.eWeak:
+                    {
+                        lblStrength.Text = "Weak";
+                        lblStrength.ForeColor = Color.OrangeRed;
+                        break;
+                    }
+                case enPasswordStrength.eMedium:
+                    {
+                        lblStrength.Text = "Medium";
+                        lblStrength.ForeColor = Color.Goldenrod;
+                        break;
+                    }
+                case enPasswordStrength.eStrong:
+                    {
+                        lblStrength.Text = "Strong";
+                        lblStrength.ForeColor = Color.ForestGreen;
+                        break;
+                    }
+                case enPasswordStrength.eVeryStrong:
+                    {
+                        lblStrength.Text = "Very Strong";
+                        lblStrength.ForeColor = Color.DarkGreen;
+                        break;
+                    }
+            }
+        }
+
+        void UpdateLabelCharacterContanning()
+        {
+            string text = txtPassword.Text.ToString();
+            lblCharContaining.Text = text.Length + " Character Containing:";
+
+            // Lowercase
+            if (ContainLowerCase(text))
+                lblLowerCase.ForeColor = Color.LightGreen;
+            else
+                lblLowerCase.ForeColor = Color.Gray;
+
+            // Uppercase
+            if (ContainUpperCase(text))
+                lblUperCase.ForeColor = Color.LightGreen;
+            else
+                lblUperCase.ForeColor = Color.Gray;
+
+            // Numbers
+            if (ContainNumber(text))
+                lblNumbers.ForeColor = Color.LightGreen;
+            else
+                lblNumbers.ForeColor = Color.Gray;
+            
+            // Symbols
+            if (ContainSymbol(text))
+                lblSymbols.ForeColor = Color.LightGreen;
+            else
+                lblSymbols.ForeColor = Color.Gray;
+        }
+
+        double CalculateNumberOfPossibleSymbols(string password)
+        {
+            double counter = 0;
+
+            if (ContainNumber(password))
+                counter += 10;   // 0–9
+
+            if (ContainSymbol(password))
+                counter += 32;   // common symbols
+
+            if (ContainUpperCase(password))
+                counter += 26;
+
+            if (ContainLowerCase(password))
+                counter += 26;
+
+            return counter;
+        }
+
+        double CalculateTimeToCrackPassword(string password)
+        {
+            double symbols = CalculateNumberOfPossibleSymbols(password);
+
+            if (symbols == 0 || password.Length == 0)
+                return 0;
+
+            double attempts = Math.Pow(symbols, password.Length);
+
+            double attemptsPerSecond = 1_000_000_000; // 1 billion attempts/sec
+
+            return attempts / attemptsPerSecond; // seconds
+        }
+
+        string GetTimeLabelFormate(double seconds)
+        {
+            if (seconds < 1)
+                return "Less than a second";
+
+            if (seconds < 60)
+                return $"{seconds:F2} seconds";
+
+            double minutes = seconds / 60;
+            if (minutes < 60)
+                return $"{minutes:F2} minutes";
+
+            double hours = minutes / 60;
+            if (hours < 24)
+                return $"{hours:F2} hours";
+
+            double days = hours / 24;
+            if (days < 365)
+                return $"{days:F2} days";
+
+            double years = days / 365;
+            if (years < 100)
+                return $"{years:F2} years";
+
+            double centuries = years / 100;
+            if (centuries < 10_000) // أقل من عشرة آلاف قرن
+                return $"{centuries:F2} centuries";
+
+            double millennia = years / 1000;
+            return $"{millennia:E2} millennia"; // صيغة علمية للأرقام الكبيرة جدًا
+        }
+
+        void UpdatelabelTimeToCrack()
+        {
+            string password = txtPassword.Text;
+
+            double timeInSeconds = CalculateTimeToCrackPassword(password);
+            lblTimeToCrack.Text = GetTimeLabelFormate(timeInSeconds);
+
+            // change forColor due to time
+            switch (GetPasswordStrength(password))
+            {
+                case enPasswordStrength.eVeryWeak:
+                    lblTimeToCrack.ForeColor = Color.Red;
+                    break;
+
+                case enPasswordStrength.eWeak:
+                    lblTimeToCrack.ForeColor = Color.OrangeRed;
+                    break;
+
+                case enPasswordStrength.eMedium:
+                    lblTimeToCrack.ForeColor = Color.Goldenrod;
+                    break;
+
+                case enPasswordStrength.eStrong:
+                    lblTimeToCrack.ForeColor = Color.ForestGreen;
+                    break;
+
+                case enPasswordStrength.eVeryStrong:
+                    lblTimeToCrack.ForeColor = Color.DarkGreen;
+                    break;
+            }
+        }
+
         private void txtPassword_TextChanged(object sender, EventArgs e)
         {
-            
+            UpdateTextboxPasswordBackColor();
+            UpdateLableStrength();
+            UpdateLabelCharacterContanning();
+            UpdatelabelTimeToCrack();
+
         }
 
         private void txtPassword_Click(object sender, EventArgs e)
         {
             lblOverlay.Visible = false;
-            txtPassword.Focus();
             txtPassword.ReadOnly = false;
-            txtPassword.PasswordChar = '•';
-            txtPassword.ForeColor = Color.Black;
-        }
-
-        private void txtPassword_DoubleClick(object sender, EventArgs e)
-        {
-
         }
 
         private void lblOverlay_Click(object sender, EventArgs e)
         {
             lblOverlay.Visible = false;
             txtPassword.ReadOnly = false;
-            txtPassword.Focus();
-            txtPassword.Text = "";
-            txtPassword.PasswordChar = '•';
-            txtPassword.ForeColor = Color.Black;
         }
+
+        private void cbShowPassword_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbShowPassword.Checked)
+                txtPassword.PasswordChar = '\0';
+            else
+                txtPassword.PasswordChar = '•';
+        }
+
+
     }
 }
