@@ -91,13 +91,6 @@ namespace PasswordStrengthChecker
             return false;
         }
 
-        // new fun
-        bool IsSymbol(char ch)
-        {
-            return !(char.IsDigit(ch) || char.IsUpper(ch) || char.IsLower(ch));
-        }
-
-        // new fun
         bool IsTheSameCharType(string Password)
         {
             if (string.IsNullOrEmpty(Password))
@@ -126,11 +119,11 @@ namespace PasswordStrengthChecker
             }
 
             // check all password is symbols
-            if (IsSymbol(Password[0]))
+            if (!char.IsLetterOrDigit(Password[0]))
             {
                 for (int i = 0; i < Password.Length; i++)
                 {
-                    if (!IsSymbol(Password[i]))
+                    if (char.IsLetterOrDigit(Password[i]))
                         return false; // there is a char is not symbol
                 }
 
@@ -158,6 +151,70 @@ namespace PasswordStrengthChecker
             return Password.Length < 5 || IsCommonPassword(Password)
                 || HasCharacterAppearedMoreThanThreeTimes(Password)
                 || IsTheSameCharType(Password);
+        }
+
+        // new
+        byte CountTrueVar(bool b1, bool b2, bool b3, bool b4)
+        {
+            byte count = 0;
+
+            if (b1)
+                count++;
+
+            if (b2)
+                count++;
+
+            if (b3)
+                count++;
+
+            if (b4)
+                count++;
+
+            return count;
+        }
+
+        // new
+        byte CountCharacterTypes(string Password)
+        {
+            if (string.IsNullOrEmpty(Password))
+                return 0;
+
+            int Counter = 0;
+            bool LowerCase = false, UpperCase = false, Digit = false,
+            Symbol = false;
+
+            while (Counter < Password.Length)
+            {
+                if (LowerCase && UpperCase && Digit && Symbol)
+                    break;
+
+                if (char.IsLower(Password[Counter]))
+                    LowerCase = true;
+                else if (char.IsUpper(Password[Counter]))
+                    UpperCase = true;
+                else if (char.IsDigit(Password[Counter]))
+                    Digit = true;
+                else
+                    Symbol = true;
+
+                Counter++;
+            }
+
+            return CountTrueVar(LowerCase, UpperCase, Digit, Symbol);
+        }
+        
+        // core
+        bool IsWeak(string Password)
+        {
+            /*
+                            (Weak Password conditions)
+            - password.length = 5.
+            - password.length = 6 and two characters type.
+             */
+
+            return (Password.Length == 5 && !IsVeryWeak(Password) ||
+                (Password.Length == 6 && CountCharacterTypes
+                (Password) == 2));
         }
 
         private void label1_Click(object sender, EventArgs e)
