@@ -153,7 +153,6 @@ namespace PasswordStrengthChecker
                 || IsTheSameCharType(Password);
         }
 
-        // new
         byte CountTrueVar(bool b1, bool b2, bool b3, bool b4)
         {
             byte count = 0;
@@ -173,7 +172,6 @@ namespace PasswordStrengthChecker
             return count;
         }
 
-        // new
         byte CountCharacterTypes(string Password)
         {
             if (string.IsNullOrEmpty(Password))
@@ -203,7 +201,6 @@ namespace PasswordStrengthChecker
             return CountTrueVar(LowerCase, UpperCase, Digit, Symbol);
         }
         
-        // core
         bool IsWeak(string Password)
         {
             /*
@@ -217,6 +214,26 @@ namespace PasswordStrengthChecker
                 (Password) == 2));
         }
 
+        // new
+        bool IsMedium(string Password)
+        {
+            /*
+                               (Medium password conditions)
+             1. password.length = 6 || Password.length = 7
+             2. if (Password.length = 8) && has 3 or 2 characters types       
+             */
+
+            if (string.IsNullOrEmpty(Password))
+                return false;
+
+            int types = CountCharacterTypes(Password);
+
+            return
+                (!IsWeak(Password) && (Password.Length == 6 || Password.Length == 7)) ||
+                (Password.Length == 8 && (types == 2 || types == 3));
+        }
+
+        
         private void label1_Click(object sender, EventArgs e)
         {
 
